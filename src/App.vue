@@ -331,5 +331,7 @@ button {
   float: right;
     margin-top: -39px;
     margin-right: 7px;
+    background-color: lightcyan;
+    border-radius: 10px;
 }
 </style>
