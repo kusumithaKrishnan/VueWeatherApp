@@ -1,7 +1,7 @@
 <template>
   <div id="main">
     <div class="container my-5">
-      <h1 class="title text-center">Weather in</h1>
+      <h1 class="title">Weather Details</h1>
       <form class="search-location" v-on:submit.prevent="getWeather">
         <input
           type="text"
@@ -12,7 +12,11 @@
         />
       </form>
 
-      <button v-on:click="currentLocation">Get Current Location</button>
+      <!-- <button v-on:click="currentLocation">Get Current Location</button> -->
+
+      <button v-on:click="currentLocation" type="button" class="btn btn-dark">Get Current Location</button>
+
+
 
       <div class="row">
         <div v-on:click="passLocation" class="col">
@@ -394,16 +398,21 @@ export default {
 
 button {
   float: right;
-  margin-top: -39px;
-  margin-right: 7px;
-  background-color: lightcyan;
-  border-radius: 10px;
+    margin-top: -32px;
+    margin-right: 7px;
+    border-radius: 10px;
+    padding: 8px;
 }
 
 .locationImage {
-  width: 50px;
-  height: 50px;
+  width: 70px;
+  height: 70px;
   margin-top: 10px;
   margin-left: 10px;
+}
+
+.text-center {
+text-align: center!important;
+    margin-top: 90px;
 }
 </style>
