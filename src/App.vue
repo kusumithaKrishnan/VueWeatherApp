@@ -14,9 +14,9 @@
 
       <!-- <button v-on:click="currentLocation">Get Current Location</button> -->
 
-      <button v-on:click="currentLocation" type="button" class="btn btn-dark">Get Current Location</button>
-
-
+      <button v-on:click="currentLocation" type="button" class="btn btn-dark">
+        Get Current Location
+      </button>
 
       <div class="row">
         <div v-on:click="passLocation" class="col">
@@ -398,10 +398,10 @@ export default {
 
 button {
   float: right;
-    margin-top: -32px;
-    margin-right: 7px;
-    border-radius: 10px;
-    padding: 8px;
+  margin-top: -32px;
+  margin-right: 7px;
+  border-radius: 10px;
+  padding: 8px;
 }
 
 .locationImage {
@@ -412,7 +412,7 @@ button {
 }
 
 .text-center {
-text-align: center!important;
-    margin-top: 90px;
+  text-align: center !important;
+  margin-top: 90px;
 }
 </style>
