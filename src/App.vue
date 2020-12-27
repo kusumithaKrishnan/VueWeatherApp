@@ -1,5 +1,5 @@
 <template>
-  <div id="main" >
+  <div id="main">
     <div class="container my-5">
       <h1 class="title text-center">Weather in</h1>
       <form class="search-location" v-on:submit.prevent="getWeather">
@@ -10,10 +10,55 @@
           v-model="citySearch"
           autocomplete="off"
         />
-        <button v-on:click="currentLocation"> Get Current Location</button>
-         
       </form>
+
+      <button v-on:click="currentLocation">Get Current Location</button>
+
+      <div class="row">
+        <div v-on:click="passLocation" class="col">
+          Mumbai
+          <img
+            class="locationImage"
+            src="./assets/mumbai.png"
+            alt="Image Not Found"
+          />
+        </div>
+        <div v-on:click="passLocation" class="col">
+          Bangalore
+          <img
+            class="locationImage"
+            src="./assets/bang.png"
+            alt="Image Not Found"
+          />
+        </div>
+        <div v-on:click="passLocation" class="col">
+          Hyderabad
+          <img
+            class="locationImage"
+            src="./assets/hyd.png"
+            alt="Image Not Found"
+          />
+        </div>
+        <div v-on:click="passLocation" class="col">
+          Chennai
+          <img
+            class="locationImage"
+            src="./assets/chen.png"
+            alt="Image Not Found"
+          />
+        </div>
+        <div v-on:click="passLocation" class="col">
+          Pune
+          <img
+            class="locationImage"
+            src="./assets/pune.png"
+            alt="Image Not Found"
+          />
+        </div>
+      </div>
+
       <p class="text-center my-3" v-if="cityFound">No city found</p>
+
       <div
         class="card rounded my-3 shadow-lg back-card overflow-hidden"
         v-if="visible"
@@ -279,27 +324,48 @@ export default {
         })
       }
     },
-    getLocation :  async function() {
+    getLocation: async function () {
       const { latitude, longitude } = this.locationDetails
       let apiKey = '0b3ef6279f31441e5f3f566afd388315'
       let baseURLData = `http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}`
       try {
-         const response = await fetch(baseURLData)
+        const response = await fetch(baseURLData)
         const data = await response.json()
-        // this.weather = data
+        const {
+          name,
+          sys: { country },
+          coord: { lat, lon },
+          main: { temp, temp_min, temp_max, feels_like, humidity }
+        } = data
+        this.weather = {
+          ...this.weather,
+          cityName: name,
+          country: country,
+          temperature: temp,
+          lowTemp: temp_min,
+          highTemp: temp_max,
+          feelsLike: feels_like,
+          humidity: humidity,
+          longitude: lon,
+          latitude: lat
+        }
         return data
-
       } catch (error) {
         console.log(error)
       }
-    }, 
+    },
 
-    currentLocation: function () {
-    //  locationDetails(currLocation) {
+    currentLocation: function (e) {
+      //  locationDetails(currLocation) {
       // if (currLocation) {
-        this.getLocation()
+      e.preventDefault()
+      this.getLocation()
       // }
-    // }
+      // }
+    },
+    passLocation(event) {
+      this.citySearch = event.currentTarget.innerText
+      this.getWeather()
     }
   },
   watch: {
@@ -308,7 +374,6 @@ export default {
         localStorage.setItem('cityName', updatedCity)
       }
     }
-    
   },
   created() {
     this.weather.cityName = localStorage.getItem('cityName')
@@ -329,9 +394,16 @@ export default {
 
 button {
   float: right;
-    margin-top: -39px;
-    margin-right: 7px;
-    background-color: lightcyan;
-    border-radius: 10px;
+  margin-top: -39px;
+  margin-right: 7px;
+  background-color: lightcyan;
+  border-radius: 10px;
+}
+
+.locationImage {
+  width: 50px;
+  height: 50px;
+  margin-top: 10px;
+  margin-left: 10px;
 }
 </style>
